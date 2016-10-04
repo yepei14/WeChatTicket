@@ -65,3 +65,15 @@ class BookEmptyHandler(WeChatHandler):
 
     def handle(self):
         return self.reply_text(self.get_message('book_empty'))
+
+class CalculationHandler(WeChatHandler):
+    def check(self):
+        return self.input['Content']
+
+    def handle(self):
+        try:
+            a = eval(self.input['Content'])
+        except SyntaxError:
+            return self.reply_text('对不起 输入的格式有误')
+        else:
+            return self.reply_text(a)
